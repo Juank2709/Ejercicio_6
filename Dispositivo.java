@@ -68,5 +68,5 @@ public abstract class Dispositivo{
   //------------------Terminan setters y getters de las propiedades---------------------------
 
   //Método abstracto que servirá para probar un dispositivo.
-  public abstract String probar();
+  public abstract String probar(String n, String link, String j);
 }
