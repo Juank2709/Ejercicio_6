@@ -1,4 +1,6 @@
 public class Cam extends Dispositivo implements Fotos, Videos, Portable{
+  
+  //Constructor de la clase.
   public Cam(double p, String s, String m, String f, String a, String pr){
     super(p, s, m, f, a, pr);
   }

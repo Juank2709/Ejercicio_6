@@ -69,4 +69,9 @@ public abstract class Dispositivo{
 
   //Método abstracto que servirá para probar un dispositivo.
   public abstract String probar(String n, String link, String j);
+
+  //Método que escribe todas las propiedades del dispositivo.
+  public String toString(){
+    return getProducto() + " marca " + getMarca() + ", serie " + getSerie() + ", con un valor de " + getPrecio() + " y fabricado el " + getFecha() + ";  código AR: " + getAR();
+  }
 }
