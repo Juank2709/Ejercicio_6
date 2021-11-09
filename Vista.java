@@ -73,7 +73,7 @@ public class Vista{
           System.out.println("\nIngresa únicamente números enteros.");
         }
 
-      System.out.println("\nIngresa el índice numérico de los productos que desees:");
+      System.out.println("\nIngresa el índice numérico de los productos que desees agregar al carrito:");
 
       bandera = false;
       int contador = 0;
@@ -172,7 +172,7 @@ public class Vista{
   }
 
   public void factura(ArrayList<Dispositivo> compras){
-
+    
   }
 
   public boolean otraCompra(){
