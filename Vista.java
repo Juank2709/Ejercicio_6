@@ -1,3 +1,6 @@
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
+import java.util.Random;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
@@ -167,15 +170,47 @@ public class Vista{
     System.out.println("\n" + compra.probar(num, link, juego));
   }
 
-  public int ordenar(){
+  /*public int ordenar(){
 
-  }
+  }*/
 
   public void factura(ArrayList<Dispositivo> compras){
+    System.out.println("\nPara generar tu factura:");
+
+    //Para solicitar el nombre.
+    System.out.print("¿Cuál es tu nombre? ");
+    scan.skip(System.lineSeparator());
+    String nombre = scan.nextLine();
+
+    //Para solicitar el NIT.
+    System.out.print("\nIngresa tu NIT: ");
+    scan.skip(System.lineSeparator());
+    String nit = scan.nextLine();
+
+    //Proceso para obtener la fecha actual.
+    DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    LocalDateTime ahora = LocalDateTime.now();
+    String fecha = formato.format(ahora);
+    //Referencia para estas instrucciones: https://www.javatpoint.com/java-get-current-date.
+
+    //Proceso para generar el número de factura.
+    Random rnd = new Random();
+    int numF = rnd.nextInt(1001);
+
+    //Proceso para obtener el monto total.
+    double monto = 0.0;
+    for (int i = 0; i < compras.size(); i++)
+      monto += Double.parseDouble(compras.get(i).getPrecio());
     
+    //Se muestra la factura
+    System.out.println("\n---------Factura No. " + numF + "---------");
+    System.out.println("Cliente: " + nombre);
+    System.out.println("NIT: " + nit);
+    System.out.println("Fecha de la compra: " + fecha);
+    System.out.println("Monto: $" + monto);
   }
 
-  public boolean otraCompra(){
+  /*public boolean otraCompra(){
     
-  }
+  }*/
 }
