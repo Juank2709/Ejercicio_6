@@ -1,5 +1,16 @@
+/******************************************************************
+Controlador.java
+@author: Juan Carlos Marroquín y Herber Sebastián Silva.
+@version: 0.0.0
+Última modificación: 2021-11-09
+
+Descripción: Driver program que llama la clase vista, para que despliegue las opciones, y así interactuar con el usuario haciendo uso de las diferentes clases elaboradas,
+con el fin de simular un sistema de ventas.
+******************************************************************/
+
 import java.util.ArrayList;
 import java.io.*;
+import java.util.Collections;
 import javax.swing.JOptionPane;
 
 public class Controlador{
@@ -7,10 +18,24 @@ public class Controlador{
     Vista vista = new Vista();
     boolean flag = true;
     while(flag){
+      ArrayList<Dispositivo> productos = new ArrayList(1);
       //-------------Se pide la sucursal---------------
+      ArrayList<String> s = ListadoSucursales();
+        int queSuc = vista.queSucur(s);
+        if(queSuc == 1){
+          productos = Listado("ciudaddeguatemala.csv");
+        } else if(queSuc == 2){
+          productos = Listado("sansalvador.csv");
+        } else if(queSuc == 3){
+          productos = Listado("sanjose.csv");
+        } else if(queSuc == 4){
+          productos = Listado("cartagena.csv");
+        } else if(queSuc == 5){
+          productos = Listado("cancun.csv");
+        }
 
       //-------------Se muestran los productos y se pregunta si se quiere comprar alguno (aquí va a un while)-----------------
-      ArrayList<Dispositivo> productos = Listado();
+
       ArrayList<Integer> indices = vista.agregarA(productos);
       ArrayList<Dispositivo> compras = new ArrayList<Dispositivo>();
 
@@ -21,9 +46,18 @@ public class Controlador{
           compras.add(productos.get(indices.get(i)));
 
         //-------------Para este punto, ya debe tenerse la lista de los dispositivos a comprar--------------
-
-        //int queOrden = 
-        
+        System.out.println("\n--------Vista previa de compra--------");
+        vista.mostrar(compras);
+        int queOrden = vista.menuOrden();
+        if(queOrden == 1){
+          FiltroMarca(compras);
+        } else if(queOrden == 2){
+          FiltroPrecio(compras);
+        } else if(queOrden == 3){
+          FiltroFecha(compras);
+        }
+        System.out.println("\n--------Vista previa de compra--------");
+        vista.mostrar(compras);
         //------------Pregunta si quiere eliminar algún elemento-------------------
         ArrayList<Dispositivo> eliminar = new ArrayList<Dispositivo>();
         eliminar = vista.eliminar(compras);
@@ -45,10 +79,10 @@ public class Controlador{
   }
   
   // Método que devuelve un ArrayList con clases Dispositivo que se encuentran en el listado csv
-  public static ArrayList<Dispositivo> Listado() {
+  public static ArrayList<Dispositivo> Listado(String direccion) {
         ArrayList<Dispositivo> dispositivos = new ArrayList(1);
         try {
-            FileReader lector = new FileReader("sansalvador.csv");
+            FileReader lector = new FileReader(direccion);
             BufferedReader BR = new BufferedReader(lector);
             String mensaje = "";
             boolean comparador = true;
@@ -128,23 +162,14 @@ public class Controlador{
     //Método para ordenar un ArrayList de Dispositivos por Precio.
     public static void FiltroPrecio(ArrayList<Dispositivo> dispos){
         Collections.sort(dispos);
-        for(Dispositivo d: dispos){
-            System.out.println(d);
-        }
     }
     
     //Método para ordenar un ArrayList de dispositivos por Marca
     public static void FiltroMarca(ArrayList<Dispositivo> dispos){
         Collections.sort(dispos, new SortByName());
-        for(Dispositivo d: dispos){
-            System.out.println(d);
-        }
     }
   //Método para ordenar un ArrayList de dispositivos por Fecha
     public static void FiltroFecha(ArrayList<Dispositivo> dispos){
         Collections.sort(dispos, new SortByDate());
-        for(Dispositivo d: dispos){
-            System.out.println(d);
-        }
     }
 }

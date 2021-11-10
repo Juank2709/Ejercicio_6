@@ -1,3 +1,12 @@
+/******************************************************************
+Vista.java
+@author: Juan Carlos Marroquín y Herber Sebastián Silva.
+@version: 0.0.0
+Última modificación: 2021-11-09
+
+Descripción: Clase encargada de interactuar directamente con el usuario.
+******************************************************************/
+
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
 import java.util.Random;
@@ -13,7 +22,10 @@ public class Vista{
     scan = new Scanner(System.in);
   }
 
-  
+  /********************************
+     * @param: Un ArrayList de tipo String con las sucursales.
+     * @return: El número de opción elegida por el usuario.
+     */
   public int queSucur(ArrayList<String> s) {
         int opcion = 0;
         try {
@@ -34,13 +46,17 @@ public class Vista{
         return opcion;
     }
 
+  /********************************
+     * @param: Un ArrayList de tipo Dispositivo con todos los productos de la sucursal elegida.
+     * @return: Un ArrayList de enteros con los productos que el usuario quiere.
+     */
   public ArrayList<Integer> agregarA(ArrayList<Dispositivo> prods){
     //Se muestran los productos disponibles.
     mostrar(prods);
 
     boolean bandera = false;
     int op = 0;
-
+    //--------------Se pregunta si quiere adquirir un producto.
     while (!bandera)
       //Bloque try-catch para validar un ingreso de datos del tipo incorrecto.
       try
@@ -64,6 +80,7 @@ public class Vista{
         bandera = false;
       }
     
+    //Declaración e instancia de arreglo dinámico tipo entero.
     ArrayList<Integer> ops = new ArrayList<Integer>();
 
     if (op == 2) return ops;
@@ -77,7 +94,8 @@ public class Vista{
         {
           bandera = false;
           op = 0;
-
+          //-------------------Se pregunta cuántos productos quiere
+          //While de validación.
           while (!bandera)
             try
             {
@@ -94,8 +112,11 @@ public class Vista{
               System.out.println("\nIngresa únicamente números enteros.");
             }
 
+          //Instrucción/Aviso para el cliente.
           System.out.println("\nIngresa el índice numérico de los productos que desees agregar al carrito:");
-      
+
+
+          //----------------Proceso para agregar y probar (si el usuario lo desea) productos.
           bandera = false;
           int contador = 0;
           while (!bandera && contador < op)
@@ -145,11 +166,13 @@ public class Vista{
               bandera = false;
             }
 
+          //Pregunta si quiere agregar algo más.
           System.out.println("¿Deseas agregar algo más?");
           System.out.println("1. Sí\n2.No");
 
           respuesta2 = scan.nextInt();
 
+          //Validación de respuesta.
           if ((respuesta2 < 1) || (respuesta2 > 2)) System.out.println("Ingresa solo números dentro del rango [1, 2].");
           else if (respuesta2 == 1) bandera3 = false;
           else bandera3 = true;
@@ -165,12 +188,20 @@ public class Vista{
     }
   }
 
-  private void mostrar(ArrayList<Dispositivo> prods){
+  /********************************
+     * @param: ArrayList tipo Dispositivo con los productos.
+     * @return: -
+     */
+  public void mostrar(ArrayList<Dispositivo> prods){
     System.out.println("");
     for (int i = 0; i < prods.size(); i++)
       System.out.println((i+1)+". " + prods.get(i).toString());
   }
 
+  /********************************
+     * @param: Un dispositivo.
+     * @return: -
+     */
   private void probar(Dispositivo compra){
     String num = "";
     String link = "";
@@ -203,54 +234,10 @@ public class Vista{
     System.out.println("\n" + compra.probar(num, link, juego));
   }
 
-  public int ordenar(){
-    boolean bandera = false;
-    int op = 0;
-
-    while (!bandera)
-      try
-      {
-        System.out.println("¿Deseas ordenar tu lista?");
-        System.out.println("1. Sí\n2. No");
-        op = scan.nextInt();
-        if ((op == 1) || (op == 2)) bandera = true;
-        else System.out.println("\nIngresa números dentro del rango [1, 2].");
-      }
-      catch (InputMismatchException e)
-      {
-        scan.next();
-        System.out.println("\nIngresa solamente números enteros.");
-        bandera = false;
-      }
-
-    if (op == 2) return 0;
-    else
-    {
-      bandera = false;
-      op = 0;
-
-      while (!bandera)
-        try
-        {
-          System.out.println("\n¿Qué tipo de ordenamiento quieres efectuar?");
-          System.out.println("1. De precio\n2. De fecha de fabricación\n3. De marca");
-
-          op = scan.nextInt();
-
-          if ((op >= 1) && (op <= 3)) bandera = true;
-          else System.out.println("\nIngresa números dentro del rango [1, 3]");
-        }
-        catch (InputMismatchException e)
-        {
-          scan.next();
-          System.out.println("\nIngresa solamente números enteros.");
-          bandera = false;
-        }
-      
-      return op;
-    }
-  }
-
+  /********************************
+     * @param: ArrayList de tipo dispositivo con las compras del usuario.
+     * @return: ArrayList de tipo dispositivo con lo que el usuario desee eliminar.
+     */
   public ArrayList<Dispositivo> eliminar(ArrayList<Dispositivo> compras){
     ArrayList<Dispositivo> ix = new ArrayList<Dispositivo>();
     boolean bandera = false;
@@ -331,6 +318,10 @@ public class Vista{
     return ix;
   }
 
+  /********************************
+     * @param: ArrayList de tipo dispositivo con las compras del usuario.
+     * @return: -
+     */
   public void factura(ArrayList<Dispositivo> compras){
     System.out.println("\nPara generar tu factura:");
 
@@ -356,7 +347,7 @@ public class Vista{
     //Proceso para obtener el monto total.
     double monto = 0.0;
     for (int i = 0; i < compras.size(); i++)
-      monto += Double.parseDouble(compras.get(i).getPrecio());
+      monto += compras.get(i).getPrecio();
     
     //Se muestra la factura
     System.out.println("\n---------Factura No. " + numF + "---------");
@@ -364,8 +355,14 @@ public class Vista{
     System.out.println("NIT: " + nit);
     System.out.println("Fecha de la compra: " + fecha);
     System.out.println("Monto: $" + monto);
+    System.out.println("Elementos comprados:");
+    mostrar(compras);
   }
 
+  /********************************
+     * @param: -
+     * @return: Un valor booleano que indica si va a hacer otra compra o no.
+     */
   public boolean otraCompra(){
     boolean bandera = false;
     int r = 0;
@@ -390,7 +387,33 @@ public class Vista{
     return r == 1 ? true : false; 
   }
 
+  /********************************
+     * @param: -
+     * @return: -
+     */
   public void despedida(){
     System.out.println("Gracias por utilizar el programa de ventas de Electrónica Latinoamericana.");
+  }
+
+  /********************************
+     * @param: -
+     * @return: Un entero del tipo de ordenamiento que el usuario quiera aplicar.
+     */
+   public int menuOrden(){
+      int opcion = 0;
+      Scanner scan1 = new Scanner(System.in);
+      try{
+          System.out.println("\n-------Menu de Ordenamiento-------");
+          System.out.println("¿Como desea ordenar su factura?\n1.Por marca\n2.Por precio\n3.Por fecha");
+          opcion = scan1.nextInt();
+          while(opcion <= 0 || opcion > 3){
+              System.out.println("\nIngrese una opcion valida");
+              opcion = scan1.nextInt();
+          }
+          
+      }catch (Exception e){
+          e.printStackTrace();      
+      }
+      return opcion;
   }
 }
