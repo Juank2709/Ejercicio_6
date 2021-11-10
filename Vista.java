@@ -26,7 +26,7 @@ public class Vista{
             opcion = scan.nextInt();
             while (opcion <= 0 || opcion > s.size()) {
                 System.out.println("Ingrese una opción valida");
-                opcion = scan1.nextInt();
+                opcion = scan.nextInt();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -66,11 +66,7 @@ public class Vista{
     
     ArrayList<Integer> ops = new ArrayList<Integer>();
 
-    if (op == 2)
-    {
-      ops.add(0);
-      return ops;
-    }
+    if (op == 2) return ops;
     else
     {
       boolean bandera3 = false;
@@ -132,10 +128,10 @@ public class Vista{
                     bandera2 = false;
                   }
 
-                if (respuesta == 1) probar(prods.get(opcion));
+                if (respuesta == 1) probar(prods.get(opcion-1));
 
                 //Se agrega al carrito
-                ops.add(opcion);
+                ops.add(opcion-1);
 
                 //Se incrementa el contador.
                 contador++;
@@ -154,8 +150,9 @@ public class Vista{
 
           respuesta2 = scan.nextInt();
 
-          if ((respuesta2 == 1) || (respuesta2 == 2)) bandera3 = true;
-          else System.out.println("Ingresa solo números enteros.");
+          if ((respuesta2 < 1) || (respuesta2 > 2)) System.out.println("Ingresa solo números dentro del rango [1, 2].");
+          else if (respuesta2 == 1) bandera3 = false;
+          else bandera3 = true;
         }
         catch (InputMismatchException e)
         {
@@ -206,9 +203,53 @@ public class Vista{
     System.out.println("\n" + compra.probar(num, link, juego));
   }
 
-  /*public int ordenar(){
+  public int ordenar(){
+    boolean bandera = false;
+    int op = 0;
 
-  }*/
+    while (!bandera)
+      try
+      {
+        System.out.println("¿Deseas ordenar tu lista?");
+        System.out.println("1. Sí\n2. No");
+        op = scan.nextInt();
+        if ((op == 1) || (op == 2)) bandera = true;
+        else System.out.println("\nIngresa números dentro del rango [1, 2].");
+      }
+      catch (InputMismatchException e)
+      {
+        scan.next();
+        System.out.println("\nIngresa solamente números enteros.");
+        bandera = false;
+      }
+
+    if (op == 2) return 0;
+    else
+    {
+      bandera = false;
+      op = 0;
+
+      while (!bandera)
+        try
+        {
+          System.out.println("\n¿Qué tipo de ordenamiento quieres efectuar?");
+          System.out.println("1. De precio\n2. De fecha de fabricación\n3. De marca");
+
+          op = scan.nextInt();
+
+          if ((op >= 1) && (op <= 3)) bandera = true;
+          else System.out.println("\nIngresa números dentro del rango [1, 3]");
+        }
+        catch (InputMismatchException e)
+        {
+          scan.next();
+          System.out.println("\nIngresa solamente números enteros.");
+          bandera = false;
+        }
+      
+      return op;
+    }
+  }
 
   public void factura(ArrayList<Dispositivo> compras){
     System.out.println("\nPara generar tu factura:");
@@ -256,8 +297,10 @@ public class Vista{
         System.out.println("¿Deseas realizar otra compra?");
         System.out.println("1. Sí\n2. No");
 
+        r = scan.nextInt();
+
         if ((r == 1) || (r == 2)) bandera = true;
-        System.out.println("Ingresa números dentro del rango [1, 2].");
+        else System.out.println("Ingresa números dentro del rango [1, 2].");
       }
       catch (InputMismatchException e)
       {

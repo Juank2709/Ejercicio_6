@@ -7,7 +7,7 @@ public abstract class Dispositivo{
   private String producto;
 
   public Dispositivo(double p, String s, String m, String f, String a, String pr){
-    //Seteo de las propiedades del dispositivo.
+    //Setteo de las propiedades del dispositivo.
     setPrecio(p);
     setSerie(s);
     setMarca(m);

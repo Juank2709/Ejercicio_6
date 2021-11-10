@@ -12,24 +12,28 @@ public class Controlador{
       //-------------Se muestran los productos y se pregunta si se quiere comprar alguno (aquí va a un while)-----------------
       ArrayList<Dispositivo> productos = Listado();
       ArrayList<Integer> indices = vista.agregarA(productos);
+      ArrayList<Dispositivo> compras = new ArrayList<Dispositivo>();
 
-      if ((indices.size() == 1) && (indices.get(0) == 0)) flag = false;
+      if (indices.size() == 0) flag = false;
       else
       {
-        ArrayList<Dispositivo> compras = new ArrayList<Dispositivo>();
-
         for (int i = 0; i < indices.size(); i++)
           compras.add(productos.get(indices.get(i)));
+
+        //-------------Para este punto, ya debe tenerse la lista de los dispositivos a comprar--------------
+
+        //int queOrden = 
+
+        //-------------Generar factura---------------
+        vista.factura(compras);
       }
-
-      //-------------Para este punto, ya debe tenerse la lista de los dispositivos a comprar--------------
-
-      //-------------Generar factura---------------
-      vista.factura(compras);
 
       //------------Preguntar si desea realizar otra compra------
       flag = vista.otraCompra();
     }
+
+    //Mensaje de despedida para el usuario.
+    vista.despedida();
   }
   
   // Método que devuelve un ArrayList con clases Dispositivo que se encuentran en el listado csv
@@ -111,5 +115,28 @@ public class Controlador{
             ex.printStackTrace();
         }
         return sucursales;
+    }
+
+    //Método para ordenar un ArrayList de Dispositivos por Precio.
+    public static void FiltroPrecio(ArrayList<Dispositivo> dispos){
+        Collections.sort(dispos);
+        for(Dispositivo d: dispos){
+            System.out.println(d);
+        }
+    }
+    
+    //Método para ordenar un ArrayList de dispositivos por Marca
+    public static void FiltroMarca(ArrayList<Dispositivo> dispos){
+        Collections.sort(dispos, new SortByName());
+        for(Dispositivo d: dispos){
+            System.out.println(d);
+        }
+    }
+  //Método para ordenar un ArrayList de dispositivos por Fecha
+    public static void FiltroFecha(ArrayList<Dispositivo> dispos){
+        Collections.sort(dispos, new SortByDate());
+        for(Dispositivo d: dispos){
+            System.out.println(d);
+        }
     }
 }
