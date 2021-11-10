@@ -251,6 +251,86 @@ public class Vista{
     }
   }
 
+  public ArrayList<Dispositivo> eliminar(ArrayList<Dispositivo> compras){
+    ArrayList<Dispositivo> ix = new ArrayList<Dispositivo>();
+    boolean bandera = false;
+    int op = 0;
+
+    while (!bandera)
+      try
+      {
+        System.out.println("\n¿Deseas eliminar algún elemento del carrito de compras?");
+        System.out.println("1. Sí\n2. No");
+        
+        op = scan.nextInt();
+
+        if ((op == 1) || (op == 2)) bandera = true;
+        else System.out.println("Ingresa números dentro del rango [1, 2].");
+      }
+      catch (InputMismatchException e)
+      {
+        scan.next();
+        System.out.println("\nSolo ingresa números enteros.");
+        bandera = false;
+      }
+    
+    if (op == 1)
+    {
+      //Reutilización de variables.
+      bandera = false;
+      op = 0;
+
+      while (!bandera)
+        try
+        {
+          System.out.print("¿Cuántos elementos deseas eliminar de tu lista? ");
+          op = scan.nextInt();
+
+          if (op > 0) bandera = true;
+          else System.out.println("Ingresa números mayores a 0.");
+        }
+        catch (InputMismatchException e)
+        {
+          scan.next();
+          System.out.println("Ingresa únicamente números enteros.");
+          bandera = false;
+        }
+      
+      //Nuevas variables
+      int respuesta = 0;
+      int contador = 0;
+
+      mostrar(compras);
+
+      System.out.println("\nIngresa el índice del elemento que quieras eliminar:");
+
+      while (contador < op)
+        try
+        {
+          System.out.print("\nProducto " + (contador + 1) + ": ");
+          respuesta = scan.nextInt();
+
+          if ((respuesta >= 1) && (respuesta <= compras.size()))
+          {
+            ix.add(compras.get(respuesta-1));
+
+            //Incremento.
+            contador++;
+          }
+          else System.out.println("\nIngresa números dentro del rango [1, " + compras.size() + "].");
+        }
+        catch (InputMismatchException e)
+        {
+          scan.next();
+          System.out.println("Ingresa solo números enteros.");
+        }
+    }
+    
+    System.out.println("\nSe han eliminado estos productos del carrito.");
+
+    return ix;
+  }
+
   public void factura(ArrayList<Dispositivo> compras){
     System.out.println("\nPara generar tu factura:");
 
@@ -261,7 +341,6 @@ public class Vista{
 
     //Para solicitar el NIT.
     System.out.print("\nIngresa tu NIT: ");
-    scan.skip(System.lineSeparator());
     String nit = scan.nextLine();
 
     //Proceso para obtener la fecha actual.

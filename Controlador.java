@@ -23,6 +23,14 @@ public class Controlador{
         //-------------Para este punto, ya debe tenerse la lista de los dispositivos a comprar--------------
 
         //int queOrden = 
+        
+        //------------Pregunta si quiere eliminar algún elemento-------------------
+        ArrayList<Dispositivo> eliminar = new ArrayList<Dispositivo>();
+        eliminar = vista.eliminar(compras);
+
+        //En caso de que sí quiera eliminar algo.
+        if (eliminar.size() > 0)
+          /* Ciclo de eliminación */ for (int j = 0; j < eliminar.size(); j++) compras.remove(eliminar.get(j));
 
         //-------------Generar factura---------------
         vista.factura(compras);
