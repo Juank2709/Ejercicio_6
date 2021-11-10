@@ -74,4 +74,15 @@ public abstract class Dispositivo{
   public String toString(){
     return getProducto() + " marca " + getMarca() + ", serie " + getSerie() + ", con un valor de " + getPrecio() + " y fabricado el " + getFecha() + ";  código AR: " + getAR();
   }
+
+  @Override
+  public int compareTo(Dispositivo d){
+      if(d.getPrecio()>precio){
+          return -1;
+      } else if (d.getPrecio()>precio){
+          return 0;
+      } else{
+          return 1;
+      }
+  }
 }
