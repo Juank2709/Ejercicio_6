@@ -14,12 +14,26 @@ public class Vista{
   }
 
   
-  public void queSucur(ArrayList<String> s){
-    System.out.println("\n¡Bienvenido a Electrónica Latinoamericana! Tenemos de todo si de tecnología se trata.");
-    System.out.println("Tenemos a tu disposición varias sucursales, elige la más cercana a ti:");
-
-    
-  }
+  public int queSucur(ArrayList<String> s) {
+        int opcion = 0;
+        try {
+            Scanner scan1 = new Scanner(System.in);
+            System.out.println("\n¡Bienvenido a Electrónica Latinoamericana! Tenemos de todo si de tecnología se trata.");
+            System.out.println("Tenemos a tu disposición varias sucursales, elige la más cercana a ti:");
+            for (int i = 0; i < s.size(); i++) {
+                System.out.println((i + 1) + ". " + s.get(i));
+            }
+            System.out.println("¿Que sucursal le queda mas cerca?");
+            opcion = scan1.nextInt();
+            while (opcion <= 0 || opcion > s.size()) {
+                System.out.println("Ingrese una opción valida");
+                opcion = scan1.nextInt();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return opcion;
+    }
 
   public ArrayList<Integer> agregarA(ArrayList<Dispositivo> prods){
     //Se muestran los productos disponibles.
@@ -76,7 +90,8 @@ public class Vista{
 
               op = scan.nextInt();
 
-              bandera = true;
+              if (op > 0)  bandera = true;
+              else System.out.println("Ingresa números enteros mayores a 0.");
             }
             catch (InputMismatchException e)
             {
@@ -136,11 +151,11 @@ public class Vista{
             }
 
           System.out.println("¿Deseas agregar algo más?");
-          System.out.println("1. Sí\n2.No")
+          System.out.println("1. Sí\n2.No");
 
           respuesta2 = scan.nextInt();
 
-          if ((respuesta2 = 1) || (respuesta2 = 2)) bandera3 = true;
+          if ((respuesta2 == 1) || (respuesta2 == 2)) bandera3 = true;
           else System.out.println("Ingresa solo números enteros.");
         }
         catch (InputMismatchException e)
@@ -165,11 +180,12 @@ public class Vista{
     String link = "";
     String juego = "";
 
+    scan.skip(System.lineSeparator());
+
     //if para verificar si el dispositivo es uno que puede llamar.
     if ((compra.getProducto().equals("Smartphone")) || (compra.getProducto().equals("Telefono Celular")) || (compra.getProducto().equals("Telefono Fijo")) || (compra.getProducto().equals("Smartwatch")))
     {
       System.out.print("¿A qué número deseas llamar? ");
-      scan.skip(System.lineSeparator());
       num = scan.nextLine();
     }
 
@@ -177,7 +193,6 @@ public class Vista{
     if ((compra.getProducto().equals("Smartphone")) || (compra.getProducto().equals("Desktop")) || (compra.getProducto().equals("SmartTV")) || (compra.getProducto().equals("Laptop")) || (compra.getProducto().equals("Tablet")))
     {
       System.out.print("¿Qué sitio deseas visitar? Ingresa el link...");
-      scan.skip(System.lineSeparator());
       link = scan.nextLine();
     }
 
@@ -185,7 +200,6 @@ public class Vista{
     if ((compra.getProducto().equals("Desktop")) || (compra.getProducto().equals("Laptop")))
     {
       System.out.print("¿Qué videojuego deseas ejecutar? ");
-      scan.skip(System.lineSeparator());
       juego = scan.nextLine();
     }
 
@@ -233,9 +247,27 @@ public class Vista{
     System.out.println("Monto: $" + monto);
   }
 
-  /*public boolean otraCompra(){
+  public boolean otraCompra(){
+    boolean bandera = false;
+    int r = 0;
+
+    while (!bandera)
+      try
+      {
+        System.out.println("¿Deseas realizar otra compra?");
+        System.out.println("1. Sí\n2. No")
+
+        if ((r == 1) || (r == 2)) bandera = true;
+        System.out.println("Ingresa números dentro del rango [1, 2].");
+      }
+      catch (InputMismatchException e)
+      {
+        scan.next();
+        System.out.println("Ingresa únicamente números enteros");
+      }
     
-  }*/
+    return r == 1 ? false : true; 
+  }
 
   public void despedida(){
     System.out.println("Gracias por utilizar el programa de ventas de Electrónica Latinoamericana.");

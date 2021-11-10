@@ -18,16 +18,17 @@ public class Controlador{
       {
         ArrayList<Dispositivo> compras = new ArrayList<Dispositivo>();
 
-        for (int i = 0; i < )
+        for (int i = 0; i < indices.size(); i++)
+          compras.add(productos.get(indices.get(i)));
       }
 
       //-------------Para este punto, ya debe tenerse la lista de los dispositivos a comprar--------------
 
-      //-------------Preguntar si no se desea agregar algo más---------
-
       //-------------Generar factura---------------
+      vista.factura(compras);
 
       //------------Preguntar si desea realizar otra compra------
+      
     }
   }
   
