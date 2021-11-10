@@ -17,14 +17,13 @@ public class Vista{
   public int queSucur(ArrayList<String> s) {
         int opcion = 0;
         try {
-            Scanner scan1 = new Scanner(System.in);
             System.out.println("\n¡Bienvenido a Electrónica Latinoamericana! Tenemos de todo si de tecnología se trata.");
             System.out.println("Tenemos a tu disposición varias sucursales, elige la más cercana a ti:");
             for (int i = 0; i < s.size(); i++) {
                 System.out.println((i + 1) + ". " + s.get(i));
             }
-            System.out.println("¿Que sucursal le queda mas cerca?");
-            opcion = scan1.nextInt();
+            System.out.println("¿Qué sucursal le queda más cerca?");
+            opcion = scan.nextInt();
             while (opcion <= 0 || opcion > s.size()) {
                 System.out.println("Ingrese una opción valida");
                 opcion = scan1.nextInt();
@@ -255,7 +254,7 @@ public class Vista{
       try
       {
         System.out.println("¿Deseas realizar otra compra?");
-        System.out.println("1. Sí\n2. No")
+        System.out.println("1. Sí\n2. No");
 
         if ((r == 1) || (r == 2)) bandera = true;
         System.out.println("Ingresa números dentro del rango [1, 2].");
@@ -266,7 +265,7 @@ public class Vista{
         System.out.println("Ingresa únicamente números enteros");
       }
     
-    return r == 1 ? false : true; 
+    return r == 1 ? true : false; 
   }
 
   public void despedida(){

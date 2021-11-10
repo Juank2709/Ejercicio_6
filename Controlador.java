@@ -28,7 +28,7 @@ public class Controlador{
       vista.factura(compras);
 
       //------------Preguntar si desea realizar otra compra------
-      
+      flag = vista.otraCompra();
     }
   }
   
