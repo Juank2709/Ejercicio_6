@@ -7,22 +7,30 @@ public class Controlador{
     Vista vista = new Vista();
     boolean flag = true;
     while(flag){
-    //-------------Se pide la sucursal---------------
+      //-------------Se pide la sucursal---------------
 
-    //-------------Se muestran los productos y se pregunta si se quiere comprar alguno (aquí va a un while)-----------------
-    ArrayList<Dispositivo> productos = Listado();
-    ArrayList<Integer> indices = new ArrayList<Integer>();
-    vista.agregarA(productos);
+      //-------------Se muestran los productos y se pregunta si se quiere comprar alguno (aquí va a un while)-----------------
+      ArrayList<Dispositivo> productos = Listado();
+      ArrayList<Integer> indices = vista.agregarA(productos);
 
-    //-------------Para este punto, ya debe tenerse la lista de los dispositivos a comprar--------------
+      if ((indices.size() == 1) && (indices.get(0) == 0)) flag = false;
+      else
+      {
+        ArrayList<Dispositivo> compras = new ArrayList<Dispositivo>();
 
-    //-------------Preguntar si no se desea agregar algo más---------
+        for (int i = 0; i < )
+      }
 
-    //-------------Generar factura---------------
+      //-------------Para este punto, ya debe tenerse la lista de los dispositivos a comprar--------------
 
-    //------------Preguntar si desea realizar otra compra------
+      //-------------Preguntar si no se desea agregar algo más---------
+
+      //-------------Generar factura---------------
+
+      //------------Preguntar si desea realizar otra compra------
     }
   }
+  
   // Método que devuelve un ArrayList con clases Dispositivo que se encuentran en el listado csv
   public static ArrayList<Dispositivo> Listado() {
         ArrayList<Dispositivo> dispositivos = new ArrayList(1);
@@ -39,7 +47,6 @@ public class Controlador{
                 } else {
                     i++;
                     if (i > 1) {
-                        i++;
                         String[] atributos = mensaje.split(",");
                         if (atributos[1].equals("Smartphone")) {
                             double precio = Double.parseDouble(atributos[6]);
@@ -76,5 +83,32 @@ public class Controlador{
             ex.printStackTrace();
         }
         return dispositivos;
+    }
+//Método para obtener el ArrayList de las sucursales disponibles.
+        public static ArrayList<String> ListadoSucursales() {
+        ArrayList<String> sucursales = new ArrayList(1);
+        try {
+            FileReader lector = new FileReader("sucursales.csv");
+            BufferedReader BR = new BufferedReader(lector);
+            String mensaje = "";
+            boolean comparador = true;
+            int i = 0;
+            do {
+                mensaje = BR.readLine();
+                if (mensaje == null) {
+                    comparador = false;
+                } else {
+                    i++;
+                    if (i > 1) {
+                        String[] atributos = mensaje.split(",");
+                        String direccion = "Direccion: " + atributos[1] + ", Codigo: " + atributos[2] + ", Pais: " + atributos[3] + ", Ciudad: " + atributos[4];
+                        sucursales.add(direccion);
+                    }
+                }
+            } while (comparador == true);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return sucursales;
     }
 }

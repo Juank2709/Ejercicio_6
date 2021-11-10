@@ -60,75 +60,98 @@ public class Vista{
     }
     else
     {
-      bandera = false;
-      op = 0;
-
-      while (!bandera)
+      boolean bandera3 = false;
+      int respuesta2 = 0;
+      
+      while (!bandera3)
         try
         {
-          System.out.print("\n¿Cuántos productos deseas agregar al carrito? ");
-
-          op = scan.nextInt();
-        }
-        catch (InputMismatchException e)
-        {
-          scan.next();
-          System.out.println("\nIngresa únicamente números enteros.");
-        }
-
-      System.out.println("\nIngresa el índice numérico de los productos que desees agregar al carrito:");
-
-      bandera = false;
-      int contador = 0;
-      while (!bandera && contador < op)
-        try
-        {
-          System.out.println("\nProducto " + (contador+1) + ": ");
-          int opcion = scan.nextInt();
-
-          if ((opcion >= 1) && (opcion <= prods.size()))
-          {
-            boolean bandera2 = false;
-            int respuesta = 0;
-            
-            while(!bandera2)
-              try
-              {
-                System.out.println("\n¿Deseas probar el dispositivo antes de agregarlo al carrito?");
-
-                System.out.println("1. Sí\n2. No");
-
-                respuesta = scan.nextInt();
-
-                if ((respuesta == 1) || (respuesta == 2)) bandera2 = true;
-                else System.out.println("\nIngresa únicamente números enteros dentro del rango [1, 2].");
-              }
-              catch (InputMismatchException e)
-              {
-                scan.next();
-                System.out.println("Ingresa únicamente números enteros.");
-              }
-
-            if (respuesta == 1) probar(prods.get(op));
-
-            //Se agrega al carrito
-            ops.add(opcion);
-
-            //Se incrementa el contador.
-            contador++;
-          }
-          else System.out.println("\nIngresa solo números dentro del rango [1, " + prods.size() + "]");
-        }
-        catch (InputMismatchException e)
-        {
-          scan.next();
-          System.out.println("\nIngresa solo números enteros.");
           bandera = false;
+          op = 0;
+
+          while (!bandera)
+            try
+            {
+              System.out.print("\n¿Cuántos productos deseas agregar al carrito? ");
+
+              op = scan.nextInt();
+
+              bandera = true;
+            }
+            catch (InputMismatchException e)
+            {
+              scan.next();
+              System.out.println("\nIngresa únicamente números enteros.");
+            }
+
+          System.out.println("\nIngresa el índice numérico de los productos que desees agregar al carrito:");
+      
+          bandera = false;
+          int contador = 0;
+          while (!bandera && contador < op)
+            try
+            {
+              System.out.println("\nProducto " + (contador+1) + ": ");
+              int opcion = scan.nextInt();
+
+              if ((opcion >= 1) && (opcion <= prods.size()))
+              {
+                boolean bandera2 = false;
+                int respuesta = 0;
+                
+                while(!bandera2)
+                  try
+                  {
+                    System.out.println("\n¿Deseas probar el dispositivo antes de agregarlo al carrito?");
+
+                    System.out.println("1. Sí\n2. No");
+
+                    respuesta = scan.nextInt();
+
+                    if ((respuesta == 1) || (respuesta == 2)) bandera2 = true;
+                    else System.out.println("\nIngresa únicamente números enteros dentro del rango [1, 2].");
+                  }
+                  catch (InputMismatchException e)
+                  {
+                    scan.next();
+                    System.out.println("Ingresa únicamente números enteros.");
+                    bandera2 = false;
+                  }
+
+                if (respuesta == 1) probar(prods.get(opcion));
+
+                //Se agrega al carrito
+                ops.add(opcion);
+
+                //Se incrementa el contador.
+                contador++;
+              }
+              else System.out.println("\nIngresa solo números dentro del rango [1, " + prods.size() + "]");
+            }
+            catch (InputMismatchException e)
+            {
+              scan.next();
+              System.out.println("\nIngresa solo números enteros.");
+              bandera = false;
+            }
+
+          System.out.println("¿Deseas agregar algo más?");
+          System.out.println("1. Sí\n2.No")
+
+          respuesta2 = scan.nextInt();
+
+          if ((respuesta2 = 1) || (respuesta2 = 2)) bandera3 = true;
+          else System.out.println("Ingresa solo números enteros.");
+        }
+        catch (InputMismatchException e)
+        {
+          scan.next();
+          System.out.println("Ingresa únicamente números enteros.");
+          bandera3 = false;
         }
 
       return ops;
     }
-
   }
 
   private void mostrar(ArrayList<Dispositivo> prods){
@@ -137,7 +160,7 @@ public class Vista{
       System.out.println((i+1)+". " + prods.get(i).toString());
   }
 
-  public void probar(Dispositivo compra){
+  private void probar(Dispositivo compra){
     String num = "";
     String link = "";
     String juego = "";
@@ -213,4 +236,8 @@ public class Vista{
   /*public boolean otraCompra(){
     
   }*/
+
+  public void despedida(){
+    System.out.println("Gracias por utilizar el programa de ventas de Electrónica Latinoamericana.");
+  }
 }
